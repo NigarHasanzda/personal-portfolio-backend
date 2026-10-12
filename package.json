@@ -12,7 +12,7 @@
     "postinstall": "node scripts/postinstall-build.cjs"
   },
   "engines": {
-    "node": ">=20 <25"
+    "node": "20.x"
   },
   "keywords": ["portfolio", "express", "mongodb", "typescript"],
   "license": "MIT",

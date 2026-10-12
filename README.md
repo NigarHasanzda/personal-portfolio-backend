@@ -81,9 +81,18 @@ Server: `http://localhost:5000` (or your `PORT`).
    - `JWT_SECRET` — long random string
    - `JWT_EXPIRES_IN` — `7d`
    - `CLIENT_URL` — your frontend URL (e.g. Vercel app)
-8. In **MongoDB Atlas → Network Access**, allow Render IPs or `0.0.0.0/0` (dev only).
+8. In **MongoDB Atlas → Network Access**, click **Add IP Address** → **Allow Access from Anywhere** (`0.0.0.0/0`). Render uses dynamic IPs; without this you often get TLS/SSL errors in logs.
+9. Set **Environment → `NODE_VERSION`** to `20` (avoid Node 24 + Atlas TLS issues on Render).
 
 Do **not** set `NODE_ENV=production` before build unless devDependencies are installed in the build step (use the build command above).
+
+### Atlas TLS error on Render (`ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR`)
+
+1. **Network Access** — allow `0.0.0.0/0` (most common fix).
+2. **`MONGODB_URI` on Render** — same string as local `.env`, no quotes, no trailing spaces. Include database name: `/portfolio?retryWrites=true&w=majority`.
+3. **Password** — if it contains `@`, `#`, `/`, etc., [URL-encode](https://www.urlencoder.org/) it in the URI.
+4. **Node version** — use **20 LTS** (repo includes `.node-version`; set `NODE_VERSION=20` in Render).
+5. **Database user** — Atlas → Database Access → user exists and password matches the URI.
 
 Alternatively use the included `render.yaml` Blueprint for the same build/start commands.
 
