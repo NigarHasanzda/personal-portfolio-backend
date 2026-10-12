@@ -72,14 +72,18 @@ Server: `http://localhost:5000` (or your `PORT`).
 1. Push this repo to GitHub.
 2. Create a **Web Service** on [Render](https://render.com) and connect the repo.
 3. **Root Directory:** leave empty (repository root, not `src`).
-4. **Build Command:** `npm install && npm run build`
-5. **Start Command:** `npm start`
-6. **Environment variables** (Render dashboard → Environment):
+4. **Build Command:** `NPM_CONFIG_PRODUCTION=false npm install && npm run build`  
+   (Minimum: `npm install` — `postinstall` runs `tsc` on Render when `RENDER=true`.)
+5. **Start Command:** `npm start` (not `node dist/server.js` alone — use `npm start`)
+6. **Root Directory:** leave **empty** (do not set to `src`).
+7. **Environment variables** (Render dashboard → Environment):
    - `MONGODB_URI` — your Atlas connection string (include database name, e.g. `/portfolio`)
    - `JWT_SECRET` — long random string
    - `JWT_EXPIRES_IN` — `7d`
    - `CLIENT_URL` — your frontend URL (e.g. Vercel app)
-7. In **MongoDB Atlas → Network Access**, allow Render IPs or `0.0.0.0/0` (dev only).
+8. In **MongoDB Atlas → Network Access**, allow Render IPs or `0.0.0.0/0` (dev only).
+
+Do **not** set `NODE_ENV=production` before build unless devDependencies are installed in the build step (use the build command above).
 
 Alternatively use the included `render.yaml` Blueprint for the same build/start commands.
 
