@@ -7,7 +7,11 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "tsx scripts/seed.ts"
+    "seed": "tsx scripts/seed.ts",
+    "render:build": "npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=20 <25"
   },
   "keywords": ["portfolio", "express", "mongodb", "typescript"],
   "license": "MIT",

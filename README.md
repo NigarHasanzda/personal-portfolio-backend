@@ -67,6 +67,24 @@ npm run dev
 
 Server: `http://localhost:5000` (or your `PORT`).
 
+## Deploy on Render
+
+1. Push this repo to GitHub.
+2. Create a **Web Service** on [Render](https://render.com) and connect the repo.
+3. **Root Directory:** leave empty (repository root, not `src`).
+4. **Build Command:** `npm install && npm run build`
+5. **Start Command:** `npm start`
+6. **Environment variables** (Render dashboard → Environment):
+   - `MONGODB_URI` — your Atlas connection string (include database name, e.g. `/portfolio`)
+   - `JWT_SECRET` — long random string
+   - `JWT_EXPIRES_IN` — `7d`
+   - `CLIENT_URL` — your frontend URL (e.g. Vercel app)
+7. In **MongoDB Atlas → Network Access**, allow Render IPs or `0.0.0.0/0` (dev only).
+
+Alternatively use the included `render.yaml` Blueprint for the same build/start commands.
+
+Render sets `PORT` automatically; the app reads it via `env.PORT`.
+
 ## Production build
 
 ```bash
